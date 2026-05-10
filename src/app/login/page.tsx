@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { setUser } from "../redux/authSlice";
+import Button from "@/components/Button/Button";
 
 const Login = () => {
 
@@ -268,7 +269,7 @@ const Login = () => {
 
                     {/* Submit Button */}
 
-                    <button
+                    {/* <button
                         type="submit"
                         disabled={loading}
                         className="btn text-white mt-4 bg-blue-600"
@@ -280,10 +281,13 @@ const Login = () => {
                                 : "Login"
                         }
 
-                    </button>
+                    </button> */}
+
+                    <Button type="submit" variant="primary" size="md" className="cursor-pointer">
+                        {loading ? "Logging in..." : "Login"}
+                    </Button>
 
                 </form>
-
             </div>
 
         </div>
