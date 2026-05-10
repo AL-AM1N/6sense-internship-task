@@ -4,11 +4,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { setUser } from "../redux/authSlice";
 
 const Login = () => {
 
     const router = useRouter();
+    const dispatch = useDispatch();
 
     // All States
 
@@ -86,14 +89,18 @@ const Login = () => {
             );
 
             console.log(response.data);
-            
-            // save token to local storage
-            localStorage.setItem(
-                "token",
-                response.data.accessToken
+
+            dispatch(
+                setUser({
+                    accessToken:
+                        response.data.auth.accessToken,
+
+                    refreshToken:
+                        response.data.auth.refreshToken,
+
+                    user: response.data.user,
+                })
             );
-
-
 
             Swal.fire({
                 position: "top-end",
