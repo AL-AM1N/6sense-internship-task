@@ -8,11 +8,15 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { setUser } from "../redux/authSlice";
 import Button from "@/components/Button/Button";
+import { useLogin } from "@/hooks/useLogin";
+import Cookies from "js-cookie";
+
 
 const Login = () => {
 
     const router = useRouter();
     const dispatch = useDispatch();
+    const { mutate, isPending } = useLogin();
 
     // All States
 
@@ -61,82 +65,72 @@ const Login = () => {
         }
 
         // API CALL
-        try {
+        mutate(
+            {
+                email,
+                password,
+            },
 
-            setLoading(true);
+            {
+                onSuccess: (data) => {
 
-            const clientId =
-                process.env.NEXT_PUBLIC_CLIENT_ID;
+                    console.log(data);
 
-            const secretId =
-                process.env.NEXT_PUBLIC_CLIENT_SECRET;
+                    // save token in cookies
 
-            const base64Credentials = btoa(
-                `${clientId}:${secretId}`
-            );
+                    Cookies.set(
+                        "accessToken",
+                        data.auth.accessToken
+                    );
 
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign-in`,
-                {
-                    email,
-                    password,
-                    grantType: "password"
+                    Cookies.set(
+                        "refreshToken",
+                        data.auth.refreshToken
+                    );
+
+                    // redux persist
+
+                    dispatch(
+                        setUser({
+                            accessToken:
+                                data.auth.accessToken,
+
+                            refreshToken:
+                                data.auth.refreshToken,
+
+                            user: data.user,
+                        })
+                    );
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Login Successful",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+
+                    router.push("/");
                 },
-                {
-                    headers: {
-                        Authorization: `Basic ${base64Credentials}`,
-                    },
-                }
-            );
 
-            console.log(response.data);
+                onError: (err: any) => {
 
-            dispatch(
-                setUser({
-                    accessToken:
-                        response.data.auth.accessToken,
+                    console.log(err);
 
-                    refreshToken:
-                        response.data.auth.refreshToken,
+                    setServerError(
+                        err?.response?.data?.message
+                    );
 
-                    user: response.data.user,
-                })
-            );
-
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
-
-            // alert("Login Successful");
-            router.push("/home");
-
-        } catch (err: any) {
-
-            console.log(err);
-
-            setServerError(
-                err?.response?.data?.message ||
-                "Login failed"
-            );
-
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Login failed",
-                text: "Invalid email or password",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-
-        } finally {
-
-            setLoading(false);
-
-        }
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Login failed",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                },
+            }
+        );
     };
 
     return (
@@ -284,7 +278,7 @@ const Login = () => {
                     </button> */}
 
                     <Button type="submit" variant="primary" size="md" className="cursor-pointer">
-                        {loading ? "Logging in..." : "Login"}
+                        {isPending ? "Logging in..." : "Login"}
                     </Button>
 
                 </form>
