@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen" >
       <p>this is home page</p>
-      <Link href="/login"><Button variant="primary" size="md">Login</Button></Link>
+      <Link href="/login"><Button variant="primary" size="md" className="cursor-pointer">Login</Button></Link>
     </div>
   );
 }

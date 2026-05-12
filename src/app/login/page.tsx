@@ -110,7 +110,7 @@ const Login = () => {
                         timer: 1500,
                     });
 
-                    router.push("/");
+                    router.push("/dashboard");
                 },
 
                 onError: (err: any) => {
