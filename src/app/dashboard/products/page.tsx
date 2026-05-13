@@ -646,7 +646,7 @@ const ProductsPage = () => {
           {currentPage > 1 && (
             <button
               onClick={() => handlePageChange(currentPage - 1)}
-              className="px-3 py-1 border rounded hover:bg-gray-100"
+              className="cursor-pointer px-3 py-1 hover:bg-gray-100"
             >
               {"<"}
             </button>
@@ -661,8 +661,8 @@ const ProductsPage = () => {
               <button
                 key={index}
                 onClick={() => handlePageChange(Number(item))}
-                className={`px-3 py-1 border rounded hover:bg-blue-100 ${
-                  currentPage === item ? "bg-blue-600 text-white" : ""
+                className={`cursor-pointer px-3 py-1 hover:bg-blue-100 ${
+                  currentPage === item ? "text-blue-600" : ""
                 }`}
               >
                 {item}
@@ -675,7 +675,7 @@ const ProductsPage = () => {
           {currentPage < totalPages && (
             <button
               onClick={() => handlePageChange(currentPage + 1)}
-              className="px-3 py-1 border rounded hover:bg-gray-100"
+              className="cursor-pointer px-3 py-1 hover:bg-gray-100"
             >
               {">"}
             </button>
