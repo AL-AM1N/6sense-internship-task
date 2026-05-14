@@ -555,6 +555,7 @@ const ProductsPage = () => {
             variant="primary"
             size="md"
             className="cursor-pointer flex items-center gap-2"
+            onClick={() => router.push("/dashboard/products/create")}
           >
             <FaPlus />
             Add product
