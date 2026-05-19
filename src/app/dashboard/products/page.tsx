@@ -329,7 +329,7 @@ const ProductsPage = () => {
                       <button className="text-gray-700">Details</button>
 
                       <button
-                        className="text-blue-600"
+                        className="text-blue-600 cursor-pointer"
                         onClick={() =>
                           router.push(
                             `/dashboard/products/${item._id}/control-room`,

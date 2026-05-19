@@ -72,14 +72,12 @@ export default function DashboardLayout({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
-
+    <div className="h-screen flex overflow-hidden ">
       {/* ================= SIDEBAR ================= */}
       <aside
         className={`fixed lg:static z-50 top-0 left-0 h-full w-72 bg-white shadow-sm flex flex-col transform transition-transform duration-300
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
-
         {/* Logo (fixed) */}
         <div className="p-5 shrink-0 bg-white">
           <img className="w-30" src="/image.png" alt="logo" />
@@ -87,10 +85,8 @@ export default function DashboardLayout({ children }: Props) {
 
         {/* Menu (ONLY this scrolls) */}
         <nav className="p-4 space-y-6 overflow-y-auto flex-1">
-
           {menuGroups.map((group, idx) => (
             <div key={idx}>
-
               {group.label && (
                 <p className="px-3 mb-2 text-xs font-semibold text-gray-400 tracking-wider">
                   {group.label}
@@ -100,7 +96,10 @@ export default function DashboardLayout({ children }: Props) {
               <div className="space-y-1">
                 {group.items.map((item) => {
                   const Icon = item.icon;
-                  const isActive = pathname === item.href;
+                  const isActive =
+                    item.href === "/dashboard"
+                      ? pathname === "/dashboard"
+                      : pathname.startsWith(item.href);
 
                   return (
                     <Link
@@ -120,10 +119,8 @@ export default function DashboardLayout({ children }: Props) {
                   );
                 })}
               </div>
-
             </div>
           ))}
-
         </nav>
       </aside>
 
@@ -137,7 +134,6 @@ export default function DashboardLayout({ children }: Props) {
 
       {/* ================= MAIN AREA ================= */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
-
         {/* Topbar (mobile only) */}
         <div className="lg:hidden flex items-center gap-3 bg-white p-4 shadow shrink-0">
           <button onClick={() => setSidebarOpen(!sidebarOpen)}>
@@ -150,10 +146,7 @@ export default function DashboardLayout({ children }: Props) {
         </div>
 
         {/* Page Content (THIS scrolls independently) */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
-
+        <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
   );
