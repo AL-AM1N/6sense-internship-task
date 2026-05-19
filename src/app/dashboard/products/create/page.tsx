@@ -100,7 +100,7 @@ const CreateProductPage = () => {
     enabled: !!selectedRateSheetId,
   });
 
-    const selectedRateSheet = rateSheetDetails;
+  const selectedRateSheet = rateSheetDetails;
 
   // Sync details into UI tracking fields array
   useEffect(() => {
@@ -370,7 +370,10 @@ const CreateProductPage = () => {
                   <input
                     type="number"
                     placeholder="0.00"
-                    {...register("safeAgreementAmount")}
+                    // {...register("safeAgreementAmount")}
+                    {...register("safeAgreementAmount", {
+                      valueAsNumber: true,
+                    })}
                     className={`${inputStyle} pl-8 pr-14`}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#667085]">
@@ -391,7 +394,10 @@ const CreateProductPage = () => {
                   <input
                     type="number"
                     placeholder="0.00"
-                    {...register("valuationCapitalAmount")}
+                    // {...register("valuationCapitalAmount")}
+                    {...register("valuationCapitalAmount", {
+                      valueAsNumber: true,
+                    })}
                     className={`${inputStyle} pl-8 pr-14`}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#667085]">
@@ -409,7 +415,10 @@ const CreateProductPage = () => {
                   <input
                     type="number"
                     placeholder="0.00"
-                    {...register("discount")}
+                    // {...register("discount")}
+                    {...register("discount", {
+                      valueAsNumber: true,
+                    })}
                     className={`${inputStyle} pr-32`}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#98A2B3] text-[14px]">

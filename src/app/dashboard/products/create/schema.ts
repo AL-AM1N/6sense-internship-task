@@ -14,9 +14,12 @@ export const schema = z.object({
 
   // FINANCIAL
   rateSheet: z.string().min(1, "Rate sheet is required"),
-  safeAgreementAmount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
-  valuationCapitalAmount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
-  discount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  // safeAgreementAmount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  // valuationCapitalAmount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  // discount: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  safeAgreementAmount: z.number().optional(),
+  valuationCapitalAmount: z.number().optional(),
+  discount: z.number().optional(),
 
   // DYNAMIC PRODUCT EMPLOYEES
   productEmployees: z.array(
@@ -30,7 +33,7 @@ export const schema = z.object({
       billRate: z.number(),
       startDate: z.string().min(1, "Member start date is required"),
       endDate: z.string().optional(),
-    })
+    }),
   ),
 
   // LEGAL DOCS
@@ -39,7 +42,7 @@ export const schema = z.object({
     .array(
       z.object({
         url: z.string().optional(),
-      })
+      }),
     )
     .optional(),
 });
