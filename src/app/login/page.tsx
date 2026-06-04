@@ -153,6 +153,7 @@ const Login = () => {
 
                 <form
                     onSubmit={handleSubmit}
+                    // noValidate
                     className="fieldset bg-base-200 w-xs border-t-5 border-blue-600 p-4 space-y-2.5"
                 >
 
