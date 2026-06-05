@@ -444,7 +444,14 @@ export default function ControlRoomPage() {
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center justify-center gap-3 text-gray-500">
-                          <button className="p-1 hover:text-blue-600">
+                          <button
+                            onClick={() =>
+                              router.push(
+                                `/dashboard/products/${productId}/control-room/edit-resource/${res._id}`,
+                              )
+                            }
+                            className="p-1 hover:text-blue-600 cursor-pointer"
+                          >
                             <FaRegEdit className="w-4 h-4" />
                           </button>
                           <button className="p-1 hover:text-blue-600">
